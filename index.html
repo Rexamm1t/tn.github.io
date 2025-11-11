@@ -203,21 +203,20 @@
 <body>
     <div class="download-container">
         <div class="app-header">
-            <div class="app-icon">📝</div>
             <h1 class="app-title">TryNoter</h1>
-            <p class="app-description">Умное приложение для заметок</p>
-            <p class="app-version">Версия 1.0.0</p>
+            <p class="app-description">Форум с большим количеством возможностей</p>
+            <p class="app-version">Версия 10.0</p>
         </div>
 
         <div class="download-card">
             <div class="file-info">
                 <div class="file-details">
-                    <div class="file-name">TryNoter_v1.0.0.apk</div>
+                    <div class="file-name">TryNoter.apk</div>
                     <div class="file-size">Размер: 15.2 MB</div>
                 </div>
             </div>
             <button class="download-btn" onclick="downloadFile()">
-                Скачать APK
+                Скачать
             </button>
             <div class="security-badge">
                 <span>🔒</span>
@@ -258,8 +257,8 @@
     <script>
         function downloadFile() {
             const link = document.createElement('a');
-            link.href = 'TryNoter_v1.0.0.apk';
-            link.download = 'TryNoter_v1.0.0.apk';
+            link.href = 'TryNoter.apk';
+            link.download = 'TryNoter.apk';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
