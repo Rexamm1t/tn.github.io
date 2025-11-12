@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TryNoter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0a0a0a;
@@ -14,7 +15,10 @@
             --border: #333333;
             --accent: #6366f1;
             --accent-hover: #818cf8;
-            --radius: 16px;
+            --radius: 24px;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -24,238 +28,638 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
         }
 
-        .download-container {
-            max-width: 500px;
-            width: 100%;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-section {
             text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 60px;
+            position: relative;
         }
 
-        .app-header {
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .app-badge {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 12px 28px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 40px;
-        }
-
-        .app-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--accent);
         }
 
         .app-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 50%, white) 100%);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
         }
 
-        .app-description {
+        .app-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 8px;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+            line-height: 1.4;
         }
 
-        .app-version {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 450px;
+            gap: 50px;
+            align-items: start;
         }
 
         .download-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius);
-            padding: 30px;
-            margin-bottom: 30px;
+            padding: 50px 40px;
+            position: sticky;
+            top: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
 
-        .file-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--bg-accent);
-            padding: 16px;
+        .version-badge {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .file-card {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: calc(var(--radius) - 4px);
+            padding: 30px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        .file-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
             margin-bottom: 20px;
         }
 
-        .file-details {
-            text-align: left;
+        .file-icon {
+            font-size: 2.8rem;
+            background: var(--gradient);
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .file-info {
+            flex: 1;
         }
 
         .file-name {
-            font-weight: 600;
-            margin-bottom: 4px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
         }
 
-        .file-size {
+        .file-meta {
+            display: flex;
+            gap: 20px;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+        }
+
+        .file-size, .file-android {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
         }
 
         .download-btn {
             width: 100%;
-            padding: 16px;
-            background: var(--accent);
+            padding: 22px;
+            background: var(--gradient);
             color: white;
             border: none;
             border-radius: var(--radius);
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            letter-spacing: -0.01em;
         }
 
         .download-btn:hover {
-            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+        }
+
+        .telegram-btn {
+            width: 100%;
+            padding: 20px;
+            background: rgba(32, 158, 226, 0.08);
+            border: 1px solid rgba(32, 158, 226, 0.3);
+            border-radius: var(--radius);
+            color: #209ee2;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+            letter-spacing: -0.01em;
+        }
+
+        .telegram-btn:hover {
+            background: #209ee2;
+            color: white;
             transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(32, 158, 226, 0.3);
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         .security-badge {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
             color: var(--text-secondary);
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
-        .features {
+        .features-section {
+            margin-bottom: 70px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
 
-        .feature-item {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
+        .feature-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius);
-            padding: 20px;
-            text-align: center;
+            padding: 40px 35px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.4);
         }
 
         .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 12px;
-            color: var(--accent);
+            font-size: 3rem;
+            margin-bottom: 25px;
+            background: var(--gradient);
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
         .feature-title {
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            letter-spacing: -0.01em;
         }
 
         .feature-desc {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            line-height: 1.6;
+            font-size: 1.05rem;
         }
 
-        .instructions {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
+        .instructions-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius);
-            padding: 24px;
-            margin-top: 30px;
-            text-align: left;
+            padding: 50px 40px;
+            margin-bottom: 70px;
         }
 
-        .instructions h3 {
-            margin-bottom: 16px;
-            color: var(--accent);
+        .steps-grid {
+            display: grid;
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        .instructions ol {
-            padding-left: 20px;
+        .step-item {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
 
-        .instructions li {
-            margin-bottom: 8px;
+        .step-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .step-number {
+            background: var(--gradient);
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            letter-spacing: -0.01em;
+        }
+
+        .step-desc {
             color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.5;
         }
 
-        @media (max-width: 768px) {
-            .app-title {
-                font-size: 2rem;
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 70px;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
             
             .download-card {
-                padding: 20px;
+                position: static;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 20px;
             }
             
-            .features {
+            .download-card {
+                padding: 40px 30px;
+            }
+            
+            .features-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .instructions-section {
+                padding: 40px 30px;
+            }
+            
+            .file-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .step-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 40px 20px;
+            }
+            
+            .app-title {
+                font-size: 2.5rem;
+            }
+            
+            .download-card {
+                padding: 30px 20px;
+            }
+            
+            .file-card {
+                padding: 25px 20px;
+            }
+            
+            .feature-card {
+                padding: 30px 25px;
+            }
+            
+            .security-badges {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Анимации */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Специальные стили для Google Sans */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Google Sans', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .download-btn, .telegram-btn {
+            font-family: 'Google Sans', sans-serif;
         }
     </style>
 </head>
 <body>
-    <div class="download-container">
-        <div class="app-header">
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-bg"></div>
             <h1 class="app-title">TryNoter</h1>
-            <p class="app-description">Форум с большим количеством возможностей</p>
-            <p class="app-version">Версия 11.0</p>
+            <div class="app-badge floating">
+                <span>🫨</span>
+                <span>OP1UM Public Team</span>
+            </div>
+            <p class="app-subtitle">Форум созданный для чатинга, удобного чтения Points, Briges. Мы все время улучшаем продукт и пытаемся быть лучше) </p>
         </div>
 
-        <div class="download-card">
-            <div class="file-info">
-                <div class="file-details">
-                    <div class="file-name">TryNoter.apk</div>
-                    <div class="file-size">Размер: 15.2 MB</div>
+        <div class="main-grid">
+            <div class="content-section">
+                <div class="features-section">
+                    <h2 class="section-title">Возможности TryNoter</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <h3 class="feature-title">Чатинг (TNC)</h3>
+                            <p class="feature-desc">Возможность переписываться с друзьями в общем чате, так и в личных сообщениях. Также вы можете переключаться по кластерам</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3 class="feature-title">Мгновенная синхронизация</h3>
+                            <p class="feature-desc">Ваши переписки, баланс TNWSTD, RePoints, настройки аккаунта автоматически синхронизируются между всеми устройствами в реальном времени без задержек</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3 class="feature-title">Безопасность</h3>
+                            <p class="feature-desc">Ваш баланс кошелька, переписки, ваш аккаунт, все это под нашей защитой</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎨</div>
+                            <h3 class="feature-title">Глубокая кастомизация</h3>
+                            <p class="feature-desc">Темы, шрифты, и форматирование под ваш уникальный стиль и предпочтения</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="instructions-section">
+                    <h2 class="section-title">Быстрый старт</h2>
+                    <div class="steps-grid">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3 class="step-title">Скачайте APK файл</h3>
+                                <p class="step-desc">Нажмите на кнопку скачивания для загрузки установочного файла на ваше устройство</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3 class="step-title">Разрешите установку</h3>
+                                <p class="step-desc">В настройках безопасности разрешите установку приложений из неизвестных источников</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3 class="step-title">Запустите установку</h3>
+                                <p class="step-desc">Откройте скачанный файл и следуйте простым инструкциям установщика</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3 class="step-title">Начните!</h3>
+                                <p class="step-desc">Запустите приложение и создайте свой акканут чтобы получить все возможности нашего проекта)</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button class="download-btn" onclick="downloadFile()">
-                Скачать
-            </button>
-            <div class="security-badge">
-                <span>🔒</span>
-                <span>Безопасный файл • Проверено антивирусом</span>
+
+            <div class="download-card">
+                <div class="version-badge">Версия 11.0 • от 12.11.2025</div>
+                
+                <div class="file-card">
+                    <div class="file-header">
+                        <h1 class="app-title">TryNoter</h1>
+                        <div class="file-info">
+                            <div class="file-name">TryNoter.apk</div>
+                            <div class="file-meta">
+                                <div class="file-size">Size ~ 14.1 MB</div>
+                                <div class="file-android">OS Android 5.1+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="download-btn" onclick="downloadFile()">
+                    <span>⬇️</span>
+                    <span>Скачать</span>
+                </button>
+
+                <a href="https://t.me/trynoter" class="telegram-btn" target="_blank">
+                    <span>📢</span>
+                    <span>Telegram канал</span>
+                </a>
+
+                <div class="security-badges">
+                    <div class="security-badge">
+                        <span>🛡️</span>
+                        <span>Проверено антивирусом</span>
+                    </div>
+                    <div class="security-badge">
+                        <span>🔒</span>
+                        <span>Безопасная установка</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="features">
-<div class="feature-item">
-                <div class="feature-icon">!</div>
-                <div class="feature-title">Дисклеймер</div>
-                <div class="feature-desc">Весь контент в приложении создан в развлекательных целях и не к чему не призывает!</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-title">Быстро</div>
-                <div class="feature-desc">Мгновенная синхронизация</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">🔒</div>
-                <div class="feature-title">Безопасно</div>
-                <div class="feature-desc">Шифрование данных</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">📱</div>
-                <div class="feature-title">Удобно</div>
-                <div class="feature-desc">Интуитивный интерфейс</div>
-            </div>
-        </div>
-
-        <div class="instructions">
-            <h3>Инструкция по установке:</h3>
-            <ol>
-                <li>Скачайте APK файл</li>
-                <li>Разрешите установку из неизвестных источников</li>
-                <li>Запустите скачанный файл</li>
-                <li>Следуйте инструкциям установщика</li>
-                <li>Наслаждайтесь приложением!</li>
-            </ol>
+        <div class="footer">
+            <p>© 2025 TryNoter • Op1um Team. Все права защищены.</p>
+            <p>#uptn</p>
         </div>
     </div>
 
@@ -267,7 +671,67 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            
+            showToast('Скачивание началось! Проверьте папку загрузок.');
         }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                background: var(--gradient);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 16px;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                transform: translateX(400px);
+                opacity: 0;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: 'Google Sans', sans-serif;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+                toast.style.opacity = '1';
+            }, 100);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 400);
+            }, 3000);
+        }
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToAnimate = document.querySelectorAll('.feature-card, .stat-card, .step-item');
+            elementsToAnimate.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                observer.observe(el);
+            });
+        });
     </script>
 </body>
 </html>
